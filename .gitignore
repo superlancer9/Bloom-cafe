@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# explicit belt-and-braces (see also the .env* rule above)
+node_modules/
+.next/
+.env
+.env.local
+.env.*.local
+!.env.example

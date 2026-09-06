@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-linen: #faf7f2;
+  --color-linen-dim: #f3ece4;
+  --color-linen-border: #e6dcd1;
+  --color-espresso: #241c18;
+  --color-espresso-soft: #453831;
+  --color-terracotta: #c86d51;
+  --color-terracotta-dark: #b25b40;
+  --color-olive: #5f6955;
+  --color-olive-light: #849077;
+
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-jakarta), -apple-system, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-linen);
+  color: var(--color-espresso);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-linen-border);
+  color: var(--color-espresso);
+}
+
+.input-underline {
+  border-bottom: 1px solid #d6c9bb;
+  background: transparent;
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+}
+
+.input-underline:focus {
+  outline: none;
+  border-color: var(--color-terracotta);
+}
+
+/* Keyboard users still get a clearly visible focus ring. */
+.input-underline:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+}
+
+.input-underline[aria-invalid="true"] {
+  border-color: var(--color-terracotta-dark);
+}
+
+.thin-rule {
+  border-top: 1px solid var(--color-linen-border);
 }
