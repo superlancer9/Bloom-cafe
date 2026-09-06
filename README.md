@@ -18,6 +18,20 @@ Staff change Pending -> Paid in the Sheet
   -> Event ID saved in the note on the Status cell
 ```
 
+## Before you start
+
+Everything here is free and takes about 15 minutes. You need:
+
+- A **Google account** — it supplies the Sheet, the Gmail that sends the emails,
+  and the Calendar. Nothing else Google-side is required: no Cloud Console, no
+  service account, no API key, no billing.
+- **Node.js 20+** and npm.
+- Optionally a **Vercel** account to put it online. No domain purchase needed.
+
+Every clone is independent. You create **your own** Sheet, **your own** Apps
+Script deployment and **your own** shared secret — none of that is in this repo,
+and none of it is shared with anyone else who clones it.
+
 ## Run it locally
 
 ```bash
@@ -208,6 +222,29 @@ no environment variable.
 `APPS_SCRIPT_WEB_APP_URL` and `APPS_SCRIPT_SHARED_SECRET` are read only in
 server code (`lib/apps-script.ts`) and are never sent to the browser. Never
 prefix either with `NEXT_PUBLIC_`.
+
+## Security notes for anyone cloning this
+
+- **Invent your own `SHARED_SECRET`.** It is a password you make up, known only
+  to your Apps Script and your own server. Generate one with
+  `openssl rand -base64 32`. Never reuse one from a tutorial, a screenshot, or
+  someone else's repo.
+- **The two `APPS_SCRIPT_*` variables are read only on the server**
+  (`lib/apps-script.ts`) and never reach the browser. Never rename either with a
+  `NEXT_PUBLIC_` prefix — that would publish your secret to every visitor.
+- **Keep `.env.local` out of git.** It is already ignored; `.env.example` is the
+  file meant to be committed, and it holds names only, never values.
+- **Treat your `/exec` URL as semi-private.** The deployment must be readable by
+  "Anyone" for the site to reach it, so the shared secret is what actually stops
+  strangers from writing rows into your Sheet. If either the URL or the secret
+  leaks, change the secret in both places (Script Properties and your host's
+  environment variables) — the `/exec` URL stays the same.
+- **This repo contains no credentials.** If you fork it, that stays true only as
+  long as you keep your values in `.env.local` and Script Properties.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
 
 ## Checks
 
